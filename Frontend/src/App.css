@@ -1,0 +1,128 @@
+/* App.css */
+
+/* 1. Global Reset & Body Styling */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2c3e50; /* Dark Blue-Grey Background */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 2. The Main Card Container */
+.parent-container {
+  background-color: #a6c4e1; /* Slightly lighter card color */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Drop Shadow for depth */
+  text-align: center;
+  width: 400px;
+  border: 2px solid #ecf0f1;
+}
+
+/* 3. Typography */
+h2 {
+  margin-top: 0;
+  color: #f1c40f; /* Gold color for Points */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #7f8c8d;
+  padding-bottom: 15px;
+}
+
+h3 {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin-top: 30px;
+}
+
+/* 4. The Name Input Field */
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+input[type="text"]:focus {
+  outline: 2px solid #f1c40f; /* Gold highlight on focus */
+}
+
+/* 5. Stat Row Styling */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease; /* Smooth color change */
+}
+
+/* Label text inside the row */
+.stat-row span {
+  flex: 1;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+/* The Number Display */
+.stat-row input {
+  width: 40px;
+  background: transparent;
+  color: inherit; /* Takes text color from parent */
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 6. Buttons */
+button {
+  background-color: #3498db; /* Bright Blue */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+button:active {
+  transform: scale(0.95); /* Click effect */
+}
+
+/* Disabled Button State */
+button:disabled {
+  background-color: #7f8c8d; /* Grey */
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.6;
+}
+
+/* 7. Reset Button specific style */
+button.reset-btn {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #e74c3c; /* Red */
+}
+
+button.reset-btn:hover {
+  background-color: #c0392b;
+}
