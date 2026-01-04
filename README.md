@@ -19,7 +19,7 @@ A full-stack web application designed to create, manage, and store RPG character
 
 **Client:**
 - React.js (Vite)
-- Hooks: `useState`, `useEffect`, `useReducer`, `useRef`, `useCallback`
+- Hooks: `useState`, `useEffect`, `useReducer`, `useRef`, `useCallback`, `useNavigate`
 - CSS3 (Dark Mode UI)
 
 **Server:**
@@ -99,7 +99,10 @@ This project was built to master the following concepts:
 ├── client/           # React Frontend
 │   ├── src/
 │   │   ├── components/  # Reusable UI components (StatRow)
-│   │   ├── App.jsx      # Main Logic
+│   │   ├── pages/
+│   │   │   ├── Home.jsx         # Fetching and Deleting
+│   │   │   ├── CreateHero.jsx   # Creation
+│   │   ├── App.jsx      # Route Logic
 │   │   └── App.css      # Styling
 ├── server/           # Node Backend
 │   ├── server.js        # Express App & Database Connection
