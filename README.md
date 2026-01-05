@@ -43,7 +43,7 @@ Follow these steps to run the project locally.
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/YOUR_USERNAME/REPO_NAME.git](https://github.com/YOUR_USERNAME/REPO_NAME.git)
+git clone https://github.com/TANAY-BARGIR/RPG-Character-Creator
 cd REPO_NAME
 ```
 ### 2. Backend Setup
@@ -77,6 +77,7 @@ The backend exposes the following REST endpoints:
 | GET    | /api/heroes         | Fetch all saved characters from the database.                    |
 | POST   | /api/heroes         | Save a new character. Body: `{ name, strength, agility, intelligence }` |
 | DELETE | /api/heroes/:id     | Permanently remove a character by their MongoDB _id.             |
+| PUT    | /api/heroes/:id     | Update the character.            |
 
 ## 🧠 Key Learnings & Concepts
 
