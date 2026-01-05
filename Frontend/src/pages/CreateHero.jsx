@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useReducer, useCallback } from "react";
-import { useNavigate } from "react-router-dom"; // IMPORT THIS
+import { useNavigate, useParams } from "react-router-dom"; // IMPORT THIS
 import StatRow from "../components/StatRow";
-
+import "../App.css";
 const MAX_POINTS = 20;
 
 function rpgReducer(state, action) {
@@ -19,6 +19,8 @@ function rpgReducer(state, action) {
         return { ...state, [action.attribute]: state[action.attribute] - 1 };
       }
       return state;
+    case "SET_DATA":
+      return action.payload;
     default:
       return state;
   }
@@ -26,6 +28,8 @@ function rpgReducer(state, action) {
 
 function CreateHero() {
   const navigate = useNavigate(); // Hook for redirection
+  const { id } = useParams();
+  const isEditing = Boolean(id);
 
   const initialState = { strength: 0, agility: 0, intelligence: 0 };
   const [state, dispatch] = useReducer(rpgReducer, initialState);
@@ -39,6 +43,28 @@ function CreateHero() {
     nameInputref.current.focus();
   }, []);
 
+  useEffect(() => {
+    if (isEditing) {
+      const fetchHero = async () => {
+        const response = await fetch(`http://localhost:5000/api/heroes`);
+        const data = await response.json();
+        const heroToEdit = data.find((h) => h._id === id);
+
+        if (heroToEdit) {
+          setName(heroToEdit.name);
+          dispatch({
+            type: "SET_DATA",
+            payload: {
+              strength: heroToEdit.strength,
+              agility: heroToEdit.agility,
+              intelligence: heroToEdit.intelligence,
+            },
+          });
+        }
+      };
+      fetchHero();
+    }
+  }, [id, isEditing]);
   const saveCharacter = useCallback(async () => {
     if (!name) {
       alert("Please enter a name first!");
@@ -46,25 +72,31 @@ function CreateHero() {
     }
     const characterData = { name, strength, agility, intelligence };
     try {
-      const response = await fetch("http://localhost:5000/api/heroes", {
-        method: "POST",
+      let url = "http://localhost:5000/api/heroes";
+      let method = "POST";
+
+      if (isEditing) {
+        url = `http://localhost:5000/api/heroes/${id}`;
+        method = "PUT";
+      }
+      const response = await fetch(url, {
+        method: method,
         headers: { "content-type": "application/json" },
         body: JSON.stringify(characterData),
       });
       if (response.ok) {
-        console.log("Saved to Server!");
-        // HERE IS THE MAGIC: Redirect to Home Page after save
+        console.log(isEditing ? "Updated!" : "Created!");
         navigate("/");
       }
     } catch (error) {
       console.error("Connection failed:", error);
     }
-  }, [name, state, navigate]);
+  }, [name, state, navigate, isEditing, id]);
 
   return (
-    <div>
-      <h2>Create Your Hero</h2>
-      <h3>Points Remaining: {points}</h3>
+    <div className="parent-container wide-card">
+      <h2 style={{color:"#34495e"}}>{isEditing ? "Edit Hero" : "Create Your Hero"}</h2>
+      <h3 style={{color:"#34495e" , fontSize:"1.2rem"}}>Points Remaining: {points}</h3>
 
       <input
         type="text"
@@ -114,10 +146,10 @@ function CreateHero() {
       >
         <button
           className="reset-btn"
-          style={{ backgroundColor: "#27ae60" }}
+          style={{ backgroundColor: "#27ae60" ,fontSize:"1.3rem" }}
           onClick={saveCharacter}
         >
-          Save & Exit
+          {isEditing ? "Update Hero" : "Create Hero"}
         </button>
       </div>
     </div>

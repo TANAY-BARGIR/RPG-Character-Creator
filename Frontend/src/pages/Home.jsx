@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Used for links
+import "../App.css";
 
 function Home() {
   const [heroList, setHeroList] = useState([]);
@@ -34,16 +35,19 @@ function Home() {
   };
 
   return (
-    <div>
-      <h2>The Hall of Heroes</h2>
+    <div className="parent-container wide-card">
+      <h2 style={{color:"#34495e"}}>The Hall of Heroes</h2>
 
-      {/* A Link is better than a standard <a href> because it doesn't reload the page */}
       <Link to="/create">
         <button
           style={{
             marginBottom: "20px",
             background: "#f1c40f",
             color: "#2c3e50",
+            fontSize: "1.4rem",
+            border: "1px solid #ecf0f1",
+            borderRadius: "15px",
+            boxShadow: "0 5px 12.5px rgba(0, 0, 0, 0.5)",
           }}
         >
           + Create New Hero
@@ -74,20 +78,27 @@ function Home() {
                     fontWeight: "bold",
                     fontSize: "1.1rem",
                     display: "block",
+                    color: "white",
                   }}
                 >
                   {hero.name}
                 </span>
-                <span style={{ color: "#bdc3c7", fontSize: "0.9rem" }}>
+                <span style={{ color: "#fedbd3ff", fontSize: "0.9rem" }}>
                   STR:{hero.strength} AGI:{hero.agility} INT:{hero.intelligence}
                 </span>
               </div>
-              <button
-                onClick={() => deleteHero(hero._id)}
-                style={{ backgroundColor: "#c0392b", padding: "5px 12px" }}
-              >
-                Delete
-              </button>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <Link to={`/edit/${hero._id}`}>
+                  <button>Edit</button>
+                </Link>
+
+                <button
+                  onClick={() => deleteHero(hero._id)}
+                  style={{ backgroundColor: "#c0392b" }}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}

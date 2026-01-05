@@ -63,6 +63,23 @@ app.delete("/api/heroes/:id", async (req, res) => {
   }
 });
 
+app.put("/api/heroes/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const UpdatedData = req.body;
+    const updatedHero = await Hero.findByIdAndUpdate(id, UpdatedData, {
+      new: true,
+    });
+    if (updatedHero) {
+      res.json(updatedHero);
+    } else {
+      res.status(404).json({ message: "Hero not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is listening at http://localhost:${PORT}`);
 });
